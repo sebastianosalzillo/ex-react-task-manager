@@ -1,31 +1,13 @@
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useContext } from "react"
+import useTasks from "../hooks/useTasks"
 
 const GlobalContext = createContext()
 
 export function GlobalProvider({ children }) {
-  const [tasks, setTasks] = useState([])
-
-  const apiUrl = import.meta.env.VITE_API_URL
-  
-  useEffect(() => {
-    async function fetchTasks() {
-
-        console.log("🌍 URL usato:", apiUrl)
-      try {
-        const response = await fetch(apiUrl)
-        const data = await response.json()
-        console.log("📦 Task ricevuti:", data)
-        setTasks(data)
-      } catch (error) {
-        console.error("Errore nel recupero dei task:", error)
-      }
-    }
-
-    fetchTasks()
-  }, [])
+  const taskContext = useTasks() // usa il custom hook
 
   return (
-    <GlobalContext.Provider value={{ tasks, setTasks }}>
+    <GlobalContext.Provider value={taskContext}>
       {children}
     </GlobalContext.Provider>
   )
