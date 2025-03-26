@@ -11,7 +11,7 @@ function AddTask() {
 
   const { addTask } = useGlobalContext()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
    
@@ -33,7 +33,16 @@ function AddTask() {
       status: statusRef.current.value
     }
 
-    console.log("📝 Task da creare:", task)
+    try {
+        await addTask(task)
+        alert("✅ Task creata con successo!")
+        setTitle("")
+        descriptionRef.current.value = ""
+        statusRef.current.value = "To do"
+      } catch (err) {
+        alert("❌ Errore: " + err.message)
+      }
+      
 
     
   }

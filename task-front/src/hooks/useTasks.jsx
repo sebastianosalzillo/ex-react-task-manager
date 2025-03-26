@@ -20,9 +20,26 @@ function useTasks() {
   }, [])
 
   
-  const addTask = (newTask) => {
-    
+  const addTask = async (taskData) => {
+    try {
+      const res = await fetch(import.meta.env.VITE_API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(taskData)
+      })
+  
+      const result = await res.json()
+  
+      if (!result.success) {
+        throw new Error(result.message || "Errore generico durante la creazione")
+      }
+  
+      setTasks(prev => [...prev, result.task])
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
+  
 
   const removeTask = (id) => {
     
