@@ -8,7 +8,7 @@ function Modal({ title, content, show, onClose, onConfirm, confirmText = "Confer
     <div className="modal-overlay">
       <div className="modal-content">
         <h2>{title}</h2>
-        <p>{content}</p>
+        {content}
         <div className="modal-buttons">
           <button onClick={onClose}>Annulla</button>
           <button onClick={onConfirm}>{confirmText}</button>

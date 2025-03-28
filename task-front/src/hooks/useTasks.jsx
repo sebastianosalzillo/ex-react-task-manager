@@ -60,10 +60,28 @@ function useTasks() {
     }
   }
 
-  const updateTask = (updatedTask) => {
-    
+  const updateTask = async (updatedTask) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/${updatedTask.id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(updatedTask)
+      })
+  
+      const result = await res.json()
+  
+      if (!result.success) {
+        throw new Error(result.message || "Errore durante l'aggiornamento")
+      }
+  
+      //  Aggiorna lo stato globale
+      setTasks(prev =>
+        prev.map(t => t.id === updatedTask.id ? result.task : t)
+      )
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
-
   return {
     tasks,
     addTask,

@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useGlobalContext } from "../context/GlobalContext"
 import { useEffect, useState } from "react"
 import Modal from "../components/Modal"
+import EditTaskModal from "../components/EditTaskModal"
 
 function TaskDetail() {
   const { id } = useParams()
@@ -9,6 +10,19 @@ function TaskDetail() {
   const navigate = useNavigate()
   const [task, setTask] = useState(null)
   const [showModal, setShowModal] = useState(false)
+  const { updateTask } = useGlobalContext()
+const [showEdit, setShowEdit] = useState(false)
+
+const handleUpdate = async (updatedTask) => {
+  try {
+    await updateTask(updatedTask)
+    alert("✅ Task modificata con successo!")
+    setShowEdit(false)
+    navigate("/")
+  } catch (err) {
+    alert("❌ Errore: " + err.message)
+  }
+}
 
   useEffect(() => {
     if (tasks.length > 0 && id) {
@@ -47,6 +61,14 @@ function TaskDetail() {
         onConfirm={handleDelete}
         confirmText="Elimina"
       />
+      <button onClick={() => setShowEdit(true)}>✏️ Modifica Task</button>
+
+<EditTaskModal
+  show={showEdit}
+  onClose={() => setShowEdit(false)}
+  task={task}
+  onSave={handleUpdate}
+/>
     </div>
   )
 }
