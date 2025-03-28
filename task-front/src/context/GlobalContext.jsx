@@ -4,7 +4,7 @@ import useTasks from "../hooks/useTasks"
 const GlobalContext = createContext()
 
 export function GlobalProvider({ children }) {
-  const taskContext = useTasks() // usa il custom hook
+  const taskContext = useTasks() 
 
   return (
     <GlobalContext.Provider value={taskContext}>

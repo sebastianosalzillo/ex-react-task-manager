@@ -1,7 +1,7 @@
 import React from "react"
-
+import { Link } from "react-router-dom"
 function TaskRow({ task }) {
-  const { title, status, createdAt } = task
+  const { title, status, createdAt, id } = task
 
   const statusColor = {
     "To do": "#f8d7da",   // rosso chiaro
@@ -11,7 +11,8 @@ function TaskRow({ task }) {
 
   return (
     <tr>
-      <td>{title}</td>
+      
+      <td><Link to={`/task/${id}`}>{title}</Link></td>
       <td style={{ backgroundColor: statusColor[status] || "#f0f0f0" }}>
         {status}
       </td>
