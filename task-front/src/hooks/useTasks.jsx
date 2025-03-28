@@ -41,8 +41,23 @@ function useTasks() {
   }
   
 
-  const removeTask = (id) => {
-    
+  const removeTask = async (id) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/${id}`, {
+        method: "DELETE",
+      })
+  
+      const result = await res.json()
+  
+      if (!result.success) {
+        throw new Error(result.message || "Errore durante l'eliminazione del task")
+      }
+  
+      // rimuovo dallo stato
+      setTasks(prev => prev.filter(task => task.id !== id))
+    } catch (error) {
+      throw new Error(error.message)
+    }
   }
 
   const updateTask = (updatedTask) => {
