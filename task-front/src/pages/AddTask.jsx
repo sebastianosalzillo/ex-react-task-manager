@@ -1,5 +1,9 @@
 import { useState, useRef } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
+import { useNavigate } from "react-router-dom"
+
+
+
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~"
 
@@ -8,13 +12,15 @@ function AddTask() {
   const [error, setError] = useState("")
   const descriptionRef = useRef()
   const statusRef = useRef()
+  const navigate = useNavigate()
+
 
   const { addTask } = useGlobalContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-   
+
     if (title.trim() === "") {
       setError("Il nome del task è obbligatorio.")
       return
@@ -34,17 +40,18 @@ function AddTask() {
     }
 
     try {
-        await addTask(task)
-        alert("✅ Task creata con successo!")
-        setTitle("")
-        descriptionRef.current.value = ""
-        statusRef.current.value = "To do"
-      } catch (err) {
-        alert("❌ Errore: " + err.message)
-      }
-      
+      await addTask(task)
+      alert("✅ Task creata con successo!")
+      setTitle("")
+      descriptionRef.current.value = ""
+      statusRef.current.value = "To do"
+      navigate("/")
+    } catch (err) {
+      alert("❌ Errore: " + err.message)
+    }
 
-    
+
+
   }
 
   return (
