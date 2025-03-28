@@ -1,9 +1,7 @@
 import { useState, useRef } from "react"
 import { useGlobalContext } from "../context/GlobalContext"
 import { useNavigate } from "react-router-dom"
-
-
-
+import "../style/AddTask.css"
 
 const symbols = "!@#$%^&*()-_=+[]{}|;:'\\\",.<>?/`~"
 
@@ -13,13 +11,10 @@ function AddTask() {
   const descriptionRef = useRef()
   const statusRef = useRef()
   const navigate = useNavigate()
-
-
   const { addTask } = useGlobalContext()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-
 
     if (title.trim() === "") {
       setError("Il nome del task è obbligatorio.")
@@ -49,41 +44,39 @@ function AddTask() {
     } catch (err) {
       alert("❌ Errore: " + err.message)
     }
-
-
-
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="add-task-form" onSubmit={handleSubmit}>
       <h2>➕ Aggiungi Task</h2>
 
-      <div>
-        <label>Nome:</label><br />
+      <div className="form-group">
+        <label>Nome:</label>
         <input
           type="text"
+          className="form-input"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error-text">{error}</p>}
 
-      <div>
-        <label>Descrizione:</label><br />
-        <textarea ref={descriptionRef}></textarea>
+      <div className="form-group">
+        <label>Descrizione:</label>
+        <textarea className="form-textarea" ref={descriptionRef}></textarea>
       </div>
 
-      <div>
-        <label>Stato:</label><br />
-        <select defaultValue="To do" ref={statusRef}>
+      <div className="form-group">
+        <label>Stato:</label>
+        <select className="form-select" defaultValue="To do" ref={statusRef}>
           <option>To do</option>
           <option>Doing</option>
           <option>Done</option>
         </select>
       </div>
 
-      <button type="submit">Aggiungi Task</button>
+      <button type="submit" className="btn">Aggiungi Task</button>
     </form>
   )
 }

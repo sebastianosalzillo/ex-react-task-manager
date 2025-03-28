@@ -1,5 +1,6 @@
 import { useState, useRef } from "react"
 import Modal from "./Modal"
+import "../style/EditTaskModal.css" // crea o importa questo file
 
 function EditTaskModal({ show, onClose, task, onSave }) {
   const [title, setTitle] = useState(task.title)
@@ -26,19 +27,41 @@ function EditTaskModal({ show, onClose, task, onSave }) {
       onConfirm={() => editFormRef.current.requestSubmit()}
       confirmText="Salva"
       content={
-        <form ref={editFormRef} onSubmit={handleSubmit}>
-          <label>Nome:</label>
-          <input value={title} onChange={(e) => setTitle(e.target.value)} type="text" />
+        <form className="edit-task-form" ref={editFormRef} onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="edit-title">Nome:</label>
+            <input
+              id="edit-title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              type="text"
+              className="form-input"
+            />
+          </div>
 
-          <label>Descrizione:</label>
-          <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
+          <div className="form-group">
+            <label htmlFor="edit-description">Descrizione:</label>
+            <textarea
+              id="edit-description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="form-textarea"
+            />
+          </div>
 
-          <label>Stato:</label>
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
-            <option>To do</option>
-            <option>Doing</option>
-            <option>Done</option>
-          </select>
+          <div className="form-group">
+            <label htmlFor="edit-status">Stato:</label>
+            <select
+              id="edit-status"
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="form-select"
+            >
+              <option>To do</option>
+              <option>Doing</option>
+              <option>Done</option>
+            </select>
+          </div>
         </form>
       }
     />

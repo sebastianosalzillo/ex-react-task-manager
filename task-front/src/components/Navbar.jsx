@@ -1,10 +1,15 @@
 import { NavLink } from "react-router-dom"
+import "../style/Navbar.css"
 
 function Navbar() {
   return (
-    <nav style={{ padding: "1rem", background: "#eee" }}>
-      <NavLink to="/" >Lista Task</NavLink>
-      <NavLink to="/add">Aggiungi Task</NavLink>
+    <nav className="navbar">
+      <NavLink to="/" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+        Lista Task
+      </NavLink>
+      <NavLink to="/add" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>
+        Aggiungi Task
+      </NavLink>
     </nav>
   )
 }
