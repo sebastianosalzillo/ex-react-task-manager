@@ -52,7 +52,7 @@ function TaskList() {
     if (sortBy !== column) return ""
     return sortOrder === 1 ? "↑" : "↓"
   }
-
+ 
   return (
     <div className="task-list">
       <h2>📋 Lista Task</h2>

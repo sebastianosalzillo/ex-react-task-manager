@@ -1,6 +1,6 @@
 import { useState, useRef } from "react"
 import Modal from "./Modal"
-import "../style/EditTaskModal.css" // crea o importa questo file
+import "../style/EditTaskModal.css" 
 
 function EditTaskModal({ show, onClose, task, onSave }) {
   const [title, setTitle] = useState(task.title)
@@ -47,7 +47,7 @@ function EditTaskModal({ show, onClose, task, onSave }) {
               onChange={(e) => setDescription(e.target.value)}
               className="form-textarea"
             />
-          </div>
+          </div> 
 
           <div className="form-group">
             <label htmlFor="edit-status">Stato:</label>

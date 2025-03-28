@@ -15,8 +15,8 @@ function Modal({ title, content, show, onClose, onConfirm, confirmText = "Confer
         </div>
       </div>
     </div>,
-    document.getElementById("modal-root") // assicurati che esista nel tuo index.html!
+    document.getElementById("modal-root") 
   )
 }
-
+ 
 export default Modal
